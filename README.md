@@ -1,5 +1,5 @@
-# sequenciadorProgramavel_modificado
+# Projeto Sequenciador Programável - versão 1
 
-Projeto criado para realizar mudanças e futuramente implementa-las ao projeto principal.
+Essa primeira versão do projeto conta apenas com a possibilidade do usuário realizar o salvamento e buscas de sequencias salvas na memória
 
 Verificar documento hist.h
