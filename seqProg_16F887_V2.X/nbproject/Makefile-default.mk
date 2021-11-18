@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=atuadores.c delay.c dispLCD4vias.c eeprom.c fifo.c serialIO.c teclado.c timer1.c main.c MCP4725.c spi_i2c.c
+SOURCEFILES_QUOTED_IF_SPACED=atuadores.c delay.c dispLCD4vias.c eeprom.c fifo.c serialIO.c teclado.c timer1.c main.c MCP4725.c spi_i2c.c eusart.c wifi.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/atuadores.p1 ${OBJECTDIR}/delay.p1 ${OBJECTDIR}/dispLCD4vias.p1 ${OBJECTDIR}/eeprom.p1 ${OBJECTDIR}/fifo.p1 ${OBJECTDIR}/serialIO.p1 ${OBJECTDIR}/teclado.p1 ${OBJECTDIR}/timer1.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/MCP4725.p1 ${OBJECTDIR}/spi_i2c.p1
-POSSIBLE_DEPFILES=${OBJECTDIR}/atuadores.p1.d ${OBJECTDIR}/delay.p1.d ${OBJECTDIR}/dispLCD4vias.p1.d ${OBJECTDIR}/eeprom.p1.d ${OBJECTDIR}/fifo.p1.d ${OBJECTDIR}/serialIO.p1.d ${OBJECTDIR}/teclado.p1.d ${OBJECTDIR}/timer1.p1.d ${OBJECTDIR}/main.p1.d ${OBJECTDIR}/MCP4725.p1.d ${OBJECTDIR}/spi_i2c.p1.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/atuadores.p1 ${OBJECTDIR}/delay.p1 ${OBJECTDIR}/dispLCD4vias.p1 ${OBJECTDIR}/eeprom.p1 ${OBJECTDIR}/fifo.p1 ${OBJECTDIR}/serialIO.p1 ${OBJECTDIR}/teclado.p1 ${OBJECTDIR}/timer1.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/MCP4725.p1 ${OBJECTDIR}/spi_i2c.p1 ${OBJECTDIR}/eusart.p1 ${OBJECTDIR}/wifi.p1
+POSSIBLE_DEPFILES=${OBJECTDIR}/atuadores.p1.d ${OBJECTDIR}/delay.p1.d ${OBJECTDIR}/dispLCD4vias.p1.d ${OBJECTDIR}/eeprom.p1.d ${OBJECTDIR}/fifo.p1.d ${OBJECTDIR}/serialIO.p1.d ${OBJECTDIR}/teclado.p1.d ${OBJECTDIR}/timer1.p1.d ${OBJECTDIR}/main.p1.d ${OBJECTDIR}/MCP4725.p1.d ${OBJECTDIR}/spi_i2c.p1.d ${OBJECTDIR}/eusart.p1.d ${OBJECTDIR}/wifi.p1.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/atuadores.p1 ${OBJECTDIR}/delay.p1 ${OBJECTDIR}/dispLCD4vias.p1 ${OBJECTDIR}/eeprom.p1 ${OBJECTDIR}/fifo.p1 ${OBJECTDIR}/serialIO.p1 ${OBJECTDIR}/teclado.p1 ${OBJECTDIR}/timer1.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/MCP4725.p1 ${OBJECTDIR}/spi_i2c.p1
+OBJECTFILES=${OBJECTDIR}/atuadores.p1 ${OBJECTDIR}/delay.p1 ${OBJECTDIR}/dispLCD4vias.p1 ${OBJECTDIR}/eeprom.p1 ${OBJECTDIR}/fifo.p1 ${OBJECTDIR}/serialIO.p1 ${OBJECTDIR}/teclado.p1 ${OBJECTDIR}/timer1.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/MCP4725.p1 ${OBJECTDIR}/spi_i2c.p1 ${OBJECTDIR}/eusart.p1 ${OBJECTDIR}/wifi.p1
 
 # Source Files
-SOURCEFILES=atuadores.c delay.c dispLCD4vias.c eeprom.c fifo.c serialIO.c teclado.c timer1.c main.c MCP4725.c spi_i2c.c
+SOURCEFILES=atuadores.c delay.c dispLCD4vias.c eeprom.c fifo.c serialIO.c teclado.c timer1.c main.c MCP4725.c spi_i2c.c eusart.c wifi.c
 
 
 
@@ -182,6 +182,22 @@ ${OBJECTDIR}/spi_i2c.p1: spi_i2c.c  nbproject/Makefile-${CND_CONF}.mk
 	@-${MV} ${OBJECTDIR}/spi_i2c.d ${OBJECTDIR}/spi_i2c.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/spi_i2c.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
+${OBJECTDIR}/eusart.p1: eusart.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/eusart.p1.d 
+	@${RM} ${OBJECTDIR}/eusart.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-osccal -mno-resetbits -mno-save-resetbits -mno-download -mno-stackcall $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/eusart.p1 eusart.c 
+	@-${MV} ${OBJECTDIR}/eusart.d ${OBJECTDIR}/eusart.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/eusart.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/wifi.p1: wifi.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/wifi.p1.d 
+	@${RM} ${OBJECTDIR}/wifi.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-osccal -mno-resetbits -mno-save-resetbits -mno-download -mno-stackcall $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/wifi.p1 wifi.c 
+	@-${MV} ${OBJECTDIR}/wifi.d ${OBJECTDIR}/wifi.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/wifi.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
 else
 ${OBJECTDIR}/atuadores.p1: atuadores.c  nbproject/Makefile-${CND_CONF}.mk 
 	@${MKDIR} "${OBJECTDIR}" 
@@ -270,6 +286,22 @@ ${OBJECTDIR}/spi_i2c.p1: spi_i2c.c  nbproject/Makefile-${CND_CONF}.mk
 	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-osccal -mno-resetbits -mno-save-resetbits -mno-download -mno-stackcall $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/spi_i2c.p1 spi_i2c.c 
 	@-${MV} ${OBJECTDIR}/spi_i2c.d ${OBJECTDIR}/spi_i2c.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/spi_i2c.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/eusart.p1: eusart.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/eusart.p1.d 
+	@${RM} ${OBJECTDIR}/eusart.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-osccal -mno-resetbits -mno-save-resetbits -mno-download -mno-stackcall $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/eusart.p1 eusart.c 
+	@-${MV} ${OBJECTDIR}/eusart.d ${OBJECTDIR}/eusart.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/eusart.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/wifi.p1: wifi.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/wifi.p1.d 
+	@${RM} ${OBJECTDIR}/wifi.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-osccal -mno-resetbits -mno-save-resetbits -mno-download -mno-stackcall $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/wifi.p1 wifi.c 
+	@-${MV} ${OBJECTDIR}/wifi.d ${OBJECTDIR}/wifi.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/wifi.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
 endif
 

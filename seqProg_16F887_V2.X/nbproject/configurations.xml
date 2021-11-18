@@ -18,6 +18,8 @@
       <itemPath>timer1.h</itemPath>
       <itemPath>MCP4725.h</itemPath>
       <itemPath>spi_i2c.h</itemPath>
+      <itemPath>eusart.h</itemPath>
+      <itemPath>wifi.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -37,6 +39,8 @@
       <itemPath>main.c</itemPath>
       <itemPath>MCP4725.c</itemPath>
       <itemPath>spi_i2c.c</itemPath>
+      <itemPath>eusart.c</itemPath>
+      <itemPath>wifi.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

@@ -51,6 +51,8 @@
 #include "eeprom.h"
 #include "MCP4725.h"
 #include "spi_i2c.h"
+#include "eusart.h"
+#include "wifi.h"
 
 void __interrupt() irq(void)
 {
@@ -72,7 +74,8 @@ void main(void)
     timer1_init();
     I2C_init(20000000);
     MCP4725(0);
-
+    wifi.init(115200);
+    wifi.mode(1);
     
 //    char *texto;
     char tecla = 0;
@@ -189,10 +192,63 @@ void main(void)
                             {
                                 case '1':   estado = TELA_AJUSTE_INICIAL;       break;
 //                                case '2':   estado = TELA_BUSCAR_SEQUENCIA;     break;
-                                case '3':   break;
+//                                case '3':   estado = TELA_REPETE_ULTIMA_SEQUENCIA; break;
 //                              case '4':   estado = TELA_CONFIGURACOES;         break;                                                        
                             }
                             break;
+               
+//               case TELA_REPETE_ULTIMA_SEQUENCIA:
+//                 
+//                            buscar_dado(10, 10, &init_cond);      //Busca o endereco de memoria onde foi salvo a condicao inicial dos atuadores da ultima sequencia executada e guarda na variavel "init_cond"                                         
+//                            manipula_atuadores_init(init_cond);   //Realiza a manipulacao dos atuadores conforme as condicoes iniciais da ultima sequencia executada expressa pela variavel "init_cond"
+//                                           
+//                            EEPROM.buscar(11, vetor_aux);         //Busca a ultima receita executada e insere em "vetor_aux"                                     
+//                            pt = vetor_aux;
+//
+//                            if(*pt == 0xFF)                                  //Verifica se o primeiro byte do endereço de memoria esta no padrao defalt (0xFF) 
+//                            {
+//                                EEPROM.deletar(tecla % 0x30);
+//                                vetor_aux[0] = 0;
+//                            }
+//
+//
+//                            for(char *ptr = vetor_aux; *ptr != 0; ptr++)     //Varre o vetor_aux e insere os passos na fila (vetor fila)
+//                            {                                                  
+//                                if(*ptr <= 0x64 || *ptr == 0xFE)
+//                                {
+//                                    decodifica(&*ptr);
+//                                    fifo_add_control(*ptr);
+//                                }
+//                                else if (*ptr > 0x64 && *ptr <= 0xDC)
+//                                {
+//                                    decodifica(&*ptr);
+//                                    fifo_add_tempo(*ptr);
+//                                }
+//                                else
+//                                {    
+//                                    decodifica(&*ptr);
+//                                    switch( *ptr )
+//                                    {
+//                                        case 'A':
+//                                        case 'B':
+//                                        case 'C':
+//                                        case 'D':
+//                                        case 'a':
+//                                        case 'b':
+//                                        case 'c':
+//                                        case 'd':                           
+//                                                *ptr &= ~0x20;   //Converte os caracteres para maiusculo
+//                                                break;
+//                                        }            
+//                                        alt_atuador(*ptr);                                                  
+//                                        fifo_add( ler_atuador(*ptr) ? *ptr : *ptr|0x20 );
+//                                    }
+//                                fifo_print();
+//                            }                                      
+//                                           
+//                            dispLCD_clr();
+//                            estado = TELA_PRINTFILA;
+//                            break;             
                             
 //             case TELA_CONFIGURACOES:
 //                            dispLCD_clr();
@@ -690,86 +746,86 @@ void main(void)
  
         serialIOscan();     
  
-        switch(meAtuadores)
-        {
-            case 0:         break;
-            
-            case 1:
-                            resetIndicePassos();
-                            resetContCiclos();                    
-                            meAtuadores = 2;
-                            break;
-
-            case 2:
-                            auxPasso = fifo_lerPos(getIndicePassos());
-                           
-                            if(botao == PLAY || botao == STEP || botao == STOP)
-                                meAtuadores = 3;
-                            break;
-
-            case 3:
-                            if(auxPasso <= 0x64 || auxPasso == 0xFE)
-                            {
-                                decodifica(&auxPasso);
-                                MCP4725((long)((4095L * auxPasso)/100));
-                                meAtuadores = 6;
-                            } 
-                            else if( auxPasso > 0x64 && auxPasso <= 0xDC )   
-                            {
-                                auxPasso -= 0x64;
-                                setT1(auxPasso  * 1000 );
-                                meAtuadores = 4;
-                            }
-                            else
-                            {
-                                decodifica(&auxPasso);
-                                set_passo(auxPasso, vetorOut);
-                                meAtuadores = 5;
-                            }
-                            break;
-
-            case 4:
-                            if(!statusT1())
-                                meAtuadores = 6;
-                            break;
-
-            case 5:
-                            if(ler_sensor(auxPasso, vetorIn))
-                                meAtuadores = 6;
-                            break; 
-                    
-            case 6:
-                            if(botao == STEP)
-                            {
-                                botao = PAUSE;
-                            }
-                            meAtuadores = 7;
-                            
-                            break;
-                            
-            case 7:
-                            addIndicePassos();
-                            if(getIndicePassos() < fifo_indice())
-                                meAtuadores = 2;
-                            else
-                            {
-                                addContCiclos();
-                                meAtuadores = 8;
-                            }
-                            break;
-                    
-            case 8:
-                            if((botao != STOP) && ((getContCiclos() < getCiclos()) || (getCiclos() == 0)))
-                            {
-                                resetIndicePassos();
-                                meAtuadores = 2;
-                            }
-                            else
-                            {
-                                meAtuadores = 0;                        
-                            }
-                            break;               
-        }
+//        switch(meAtuadores)
+//        {
+//            case 0:         break;
+//            
+//            case 1:
+//                            resetIndicePassos();
+//                            resetContCiclos();                    
+//                            meAtuadores = 2;
+//                            break;
+//
+//            case 2:
+//                            auxPasso = fifo_lerPos(getIndicePassos());
+//                           
+//                            if(botao == PLAY || botao == STEP || botao == STOP)
+//                                meAtuadores = 3;
+//                            break;
+//
+//            case 3:
+//                            if(auxPasso <= 0x64 || auxPasso == 0xFE)
+//                            {
+//                                decodifica(&auxPasso);
+//                                MCP4725((long)((4095L * auxPasso)/100));
+//                                meAtuadores = 6;
+//                            } 
+//                            else if( auxPasso > 0x64 && auxPasso <= 0xDC )   
+//                            {
+//                                auxPasso -= 0x64;
+//                                setT1(auxPasso  * 1000 );
+//                                meAtuadores = 4;
+//                            }
+//                            else
+//                            {
+//                                decodifica(&auxPasso);
+//                                set_passo(auxPasso, vetorOut);
+//                                meAtuadores = 5;
+//                            }
+//                            break;
+//
+//            case 4:
+//                            if(!statusT1())
+//                                meAtuadores = 6;
+//                            break;
+//
+//            case 5:
+//                            if(ler_sensor(auxPasso, vetorIn))
+//                                meAtuadores = 6;
+//                            break; 
+//                    
+//            case 6:
+//                            if(botao == STEP)
+//                            {
+//                                botao = PAUSE;
+//                            }
+//                            meAtuadores = 7;
+//                            
+//                            break;
+//                            
+//            case 7:
+//                            addIndicePassos();
+//                            if(getIndicePassos() < fifo_indice())
+//                                meAtuadores = 2;
+//                            else
+//                            {
+//                                addContCiclos();
+//                                meAtuadores = 8;
+//                            }
+//                            break;
+//                    
+//            case 8:
+//                            if((botao != STOP) && ((getContCiclos() < getCiclos()) || (getCiclos() == 0)))
+//                            {
+//                                resetIndicePassos();
+//                                meAtuadores = 2;
+//                            }
+//                            else
+//                            {
+//                                meAtuadores = 0;                        
+//                            }
+//                            break;               
+//        }
     }
     return;
 }
